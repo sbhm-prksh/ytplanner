@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ytplanner.in – The Future of Studying</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <title>YT Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,137 +12,810 @@
       box-sizing: border-box;
     }
 
-    body {
-      background: linear-gradient(to right, #0c0c0c, #121212);
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      overflow: hidden;
+    :root {
+      --red: #ff3333;
+      --red-light: #ff5555;
+      --bg: #0a0a0a;
+      --bg-card: #111;
+      --text: #fff;
+      --text-dim: #999;
+      --border: #333;
     }
 
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header */
     header {
-      position: absolute;
+      position: fixed;
       top: 0;
       width: 100%;
-      padding: 1.5rem 2rem;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    .header-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 0;
     }
 
     .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
-      color: #ff4040;
-      letter-spacing: 1px;
-      text-transform: lowercase;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--red);
+      text-decoration: none;
     }
 
-    .hero {
-      height: 100vh;
-      width: 100%;
-      padding: 0 2rem;
+    .status-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 0 2rem;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      /* letter-spacing: -0.02em; */
+    }
+
+    .highlight {
+      color: var(--red);
+    }
+
+    .hero-text p {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
       text-align: center;
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -1px;
-      margin-bottom: 1.2rem;
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--red);
+      display: block;
     }
 
-    .hero h1 span {
-      background: linear-gradient(to right, #ff3c3c, #ff6e6e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      color: #bbbbbb;
-      max-width: 700px;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+    /* Demo Interface */
+    .demo-interface {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      max-width: 800px;
-    }
-
-    .feature {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      color: #ddd;
-      transition: all 0.2s ease;
-    }
-
-    .feature:hover {
-      background: #ff3c3c10;
-      color: #fff;
-    }
-
-    footer {
+    .demo-interface::before {
+      content: '';
       position: absolute;
-      bottom: 1rem;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2;
+    }
+
+    .demo-content {
+      position: relative;
+      z-index: 1;
+      filter: blur(0.5px);
+    }
+
+    .demo-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .demo-input {
       width: 100%;
+      background: #0a0a0a;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .demo-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .mode-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mode-option {
+      flex: 1;
+      background: #0a0a0a;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem;
       text-align: center;
       font-size: 0.8rem;
-      color: #666;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
+    .mode-option.active {
+      border-color: var(--red);
+      background: rgba(255, 51, 51, 0.1);
+    }
+
+    .mode-input {
+      width: 100%;
+      background: #0a0a0a;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .demo-button {
+      width: 100%;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .demo-button:hover {
+      background: var(--red-light);
+    }
+
+    .launching-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid var(--red);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .launching-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .launching-sub {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    /* Features Section */
+    .features {
+      padding: 4rem 0;
+      background: var(--bg-card);
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feature-card:hover {
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .feature-desc {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* Problem Section */
+    .problem {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .problem h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .problem-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .problem-emoji {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .problem-text {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+    }
+
+    /* Solution Section */
+    .solution {
+      padding: 4rem 0;
+      background: var(--bg-card);
+    }
+
+    .solution-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .solution h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .solution-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--red);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .step-text {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+    }
+
+    .notify-form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 0.5rem;
+    }
+
+    .notify-input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1rem;
+      padding: 1rem 1.5rem;
+      outline: none;
+    }
+
+    .notify-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .notify-button {
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .notify-button:hover {
+      background: var(--red-light);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center; /* Default for smaller screens */
+      color: var(--text-dim);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column; /* Stacked by default on smaller screens */
+      justify-content: center; /* Center content when stacked */
+      align-items: center; /* Center items when stacked */
+      gap: 1rem;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column; /* Stack these elements by default */
+      align-items: center; /* Center them when stacked */
+      gap: 0.5rem; /* Space between copyright and tagline */
+    }
+    .tagline-text {
+      text-align: center; /* Ensure tagline text is centered on small screens */
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      /* On small screens, this will naturally be below footer-left due to flex-direction: column on footer-content */
+    }
+
+    /* Responsive Design */
+    @media (min-width: 769px) { /* Use min-width for desktop-first approach */
+      .footer-content {
+        flex-direction: row; /* Row direction for larger screens */
+        justify-content: space-between; /* Space out items */
+        align-items: center; /* Align items vertically */
       }
-      .hero p {
-        font-size: 1rem;
+
+      .footer-left {
+        flex-direction: row; /* Align copyright and tagline in a row */
+        align-items: center; /* Vertically align them */
+        gap: 1.5rem; /* Adjust space between copyright and tagline on larger screens */
       }
-      .feature {
-        font-size: 0.85rem;
-        padding: 0.8rem 1.2rem;
+      .tagline-text {
+        text-align: left; /* Align tagline to the left within its container */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .solution-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .stats {
+        justify-content: center;
+      }
+
+      .notify-form {
+        flex-direction: column;
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      .notify-input {
+        text-align: center;
+      }
+
+      .notify-button {
+        border-radius: 12px;
+      }
+
+      .mode-selector {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 0.5rem;
+      }
+
+      .hero {
+        padding: 7rem 0.1rem 1rem 0.1rem;
+      }
+
+      .demo-interface {
+        padding: 1rem;
+      }
+
+      .launching-overlay {
+        padding: 1rem;
+      }
+
+      .features, .problem, .solution, .cta {
+        padding: 2rem 0;
       }
     }
   </style>
 </head>
 <body>
-
   <header>
-    <div class="logo">ytplanner</div>
-    <div style="color:#555;font-size: 0.9rem;">Launching Soon</div>
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo">YT Planner</a>
+        <div class="status-badge">
+          <div class="pulse"></div>
+          Launching Soon
+        </div>
+      </div>
+    </div>
   </header>
 
-  <section class="hero">
-    <h1><span>Turn YouTube Playlists</span> Into Daily Study Plans</h1>
-    <p>
-      Exam in 10 days? 120 videos left?<br>
-      We break it down. Day-by-day. No stress.
-    </p>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>
+              Stop YouTube <span class="highlight">Overwhelm</span>.<br>
+              Start <span class="highlight">Smart Study</span>.
+            </h1>
+            <p>
+              Turn any YouTube playlist into a structured daily study plan.
+              Set deadlines, track progress, take notes. Never lose motivation again.
+            </p>
+            </div>
 
-    <div class="features">
-      <div class="feature">🧠 Smart Daily Scheduler</div>
-      <div class="feature">⏳ Set Deadline or Study Time</div>
-      <div class="feature">🎯 Auto Progress Tracker</div>
-      <div class="feature">📝 Take Notes Per Video</div>
-      <div class="feature">📈 Visual Completion Stats</div>
-      <div class="feature">💻 Clean, Distraction-Free UI</div>
-    </div>
-  </section>
+          <div class="demo-interface">
+            <div class="demo-content">
+              <div class="demo-title">🎯 Create Your Study Plan</div>
+
+              <input
+                type="text"
+                class="demo-input"
+                placeholder="https://youtube.com/playlist?list=PLwhatever..."
+                disabled
+              >
+
+              <div class="mode-selector">
+                <div class="mode-option active">⏱️ Daily Target</div>
+                <div class="mode-option">🎯 Deadline</div>
+              </div>
+
+              <input
+                type="text"
+                class="mode-input"
+                placeholder="Study 30 minutes daily"
+                disabled
+              >
+
+              <button class="demo-button" disabled>
+                Create My Study Plan
+              </button>
+            </div>
+
+            <div class="launching-overlay">
+              <div class="launching-text">🚀 Launching Soon</div>
+              <div class="launching-sub">Building something amazing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="problem">
+      <div class="container">
+        <h2>The YouTube Study <span class="highlight">Problem</span></h2>
+        <div class="problem-grid">
+          <div class="problem-item">
+            <span class="problem-emoji">😵</span>
+            <p class="problem-text">120+ video playlists feel impossible to finish</p>
+          </div>
+          <div class="problem-item">
+            <span class="problem-emoji">📅</span>
+            <p class="problem-text">Exam in 10 days, no clear study schedule</p>
+          </div>
+          <div class="problem-item">
+            <span class="problem-emoji">🔄</span>
+            <p class="problem-text">Lose track of progress, restart from video 1</p>
+          </div>
+          <div class="problem-item">
+            <span class="problem-emoji">🧠</span>
+            <p class="problem-text">No way to take notes or track learning</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="solution">
+      <div class="container">
+        <div class="solution-content">
+          <div>
+            <h2>The <span class="highlight">ytplanner</span> Solution</h2>
+            <div class="solution-steps">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-text">Paste any YouTube playlist URL</div>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">Choose daily target or deadline</div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">Get smart daily schedule</div>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-text">Track progress & take notes</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="demo-interface">
+              <div class="demo-content">
+                <div style="background: #0a0a0a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <div style="width: 12px; height: 12px; background: #ff3333; border-radius: 2px;"></div>
+                    <span style="font-size: 0.8rem; color: #999;">Day 1 - Aug 10</span>
+                  </div>
+                  <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">✅ Intro to React (12 min)</div>
+                  <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">✅ JSX Basics (8 min)</div>
+                  <div style="font-size: 0.9rem; color: #999;">⏳ Components (15 min)</div>
+                </div>
+                <div style="background: #0a0a0a; padding: 1rem; border-radius: 8px;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <div style="width: 12px; height: 12px; background: #333; border-radius: 2px;"></div>
+                    <span style="font-size: 0.8rem; color: #999;">Day 2 - Aug 11</span>
+                  </div>
+                  <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">⏳ Props & State (18 min)</div>
+                  <div style="font-size: 0.9rem; color: #999;">⏳ Event Handling (12 min)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h2>Built for <span class="highlight">Student Success</span></h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-icon">🧠</span>
+            <h3 class="feature-title">Smart Scheduling</h3>
+            <p class="feature-desc">AI analyzes video lengths and creates perfect daily study chunks</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📅</span>
+            <h3 class="feature-title">Flexible Modes</h3>
+            <p class="feature-desc">Set daily targets or deadlines - we handle the math</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">✅</span>
+            <h3 class="feature-title">Progress Tracking</h3>
+            <p class="feature-desc">Visual progress bars and completion stats keep you motivated</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📝</span>
+            <h3 class="feature-title">Inline Notes</h3>
+            <p class="feature-desc">Take notes per video, all organized in one place</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🎯</span>
+            <h3 class="feature-title">Stay Accountable</h3>
+            <p class="feature-desc">Daily reminders and streak tracking build consistency</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">💻</span>
+            <h3 class="feature-title">Distraction-Free</h3>
+            <p class="feature-desc">Clean interface without YouTube's addictive features</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    © 2025 ytplanner.in — Built with ❤️, late nights, and love for open knowledge.
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="copyright-text">© 2025 ytplanner.in</span>
+          <span class="tagline-text">Free by heart. Funded by ads. Built for learners.</span>
+        </div>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    // Mode selector functionality
+    document.querySelectorAll('.mode-option').forEach(option => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('.mode-option').forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+
+        const modeInput = document.querySelector('.mode-input');
+        if (option.textContent.includes('Daily Target')) {
+          modeInput.placeholder = 'Study 30 minutes daily';
+        } else {
+          modeInput.placeholder = 'Finish by August 15, 2025';
+        }
+      });
+    });
+
+    // Email notification form
+    document.querySelector('.notify-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.querySelector('.notify-input').value;
+      if (email) {
+        alert('Thanks! We\'ll notify you when ytplanner.in launches.');
+        document.querySelector('.notify-input').value = '';
+      }
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
