@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YT Planner</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
@@ -82,8 +83,15 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
     }
 
     /* Hero Section */
@@ -477,26 +485,35 @@
       background: var(--bg-card);
       border-top: 1px solid var(--border);
       padding: 2rem 0;
-      text-align: center; /* Default for smaller screens */
+      text-align: center;
+      /* Default for smaller screens */
       color: var(--text-dim);
     }
 
     .footer-content {
       display: flex;
-      flex-direction: column; /* Stacked by default on smaller screens */
-      justify-content: center; /* Center content when stacked */
-      align-items: center; /* Center items when stacked */
+      flex-direction: column;
+      /* Stacked by default on smaller screens */
+      justify-content: center;
+      /* Center content when stacked */
+      align-items: center;
+      /* Center items when stacked */
       gap: 1rem;
     }
 
     .footer-left {
       display: flex;
-      flex-direction: column; /* Stack these elements by default */
-      align-items: center; /* Center them when stacked */
-      gap: 0.5rem; /* Space between copyright and tagline */
+      flex-direction: column;
+      /* Stack these elements by default */
+      align-items: center;
+      /* Center them when stacked */
+      gap: 0.5rem;
+      /* Space between copyright and tagline */
     }
+
     .tagline-text {
-      text-align: center; /* Ensure tagline text is centered on small screens */
+      text-align: center;
+      /* Ensure tagline text is centered on small screens */
     }
 
     .footer-links {
@@ -506,20 +523,30 @@
     }
 
     /* Responsive Design */
-    @media (min-width: 769px) { /* Use min-width for desktop-first approach */
+    @media (min-width: 769px) {
+
+      /* Use min-width for desktop-first approach */
       .footer-content {
-        flex-direction: row; /* Row direction for larger screens */
-        justify-content: space-between; /* Space out items */
-        align-items: center; /* Align items vertically */
+        flex-direction: row;
+        /* Row direction for larger screens */
+        justify-content: space-between;
+        /* Space out items */
+        align-items: center;
+        /* Align items vertically */
       }
 
       .footer-left {
-        flex-direction: row; /* Align copyright and tagline in a row */
-        align-items: center; /* Vertically align them */
-        gap: 1.5rem; /* Adjust space between copyright and tagline on larger screens */
+        flex-direction: row;
+        /* Align copyright and tagline in a row */
+        align-items: center;
+        /* Vertically align them */
+        gap: 1.5rem;
+        /* Adjust space between copyright and tagline on larger screens */
       }
+
       .tagline-text {
-        text-align: left; /* Align tagline to the left within its container */
+        text-align: left;
+        /* Align tagline to the left within its container */
       }
     }
 
@@ -575,12 +602,16 @@
         padding: 1rem;
       }
 
-      .features, .problem, .solution, .cta {
+      .features,
+      .problem,
+      .solution,
+      .cta {
         padding: 2rem 0;
       }
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="container">
@@ -600,37 +631,28 @@
         <div class="hero-content">
           <div class="hero-text">
             <h1>
-              We <span class="highlight">built</span>.<br>
+              We <span class="highlight">built</span><br>
               what <span class="highlight">YouTube</span> did't.
             </h1>
             <p>
               Turn any YouTube playlist into a structured daily study plan.
               Set deadlines, track progress, take notes. Never lose motivation again.
             </p>
-            </div>
+          </div>
 
           <div class="demo-interface">
             <div class="demo-content">
               <div class="demo-title">🎯 Create Your Study Plan</div>
 
-              <input
-                type="text"
-                class="demo-input"
-                placeholder="https://youtube.com/playlist?list=PLwhatever..."
-                disabled
-              >
+              <input type="text" class="demo-input" placeholder="https://youtube.com/playlist?list=PLwhatever..."
+                disabled>
 
               <div class="mode-selector">
                 <div class="mode-option active">⏱️ Daily Target</div>
                 <div class="mode-option">🎯 Deadline</div>
               </div>
 
-              <input
-                type="text"
-                class="mode-input"
-                placeholder="Study 30 minutes daily"
-                disabled
-              >
+              <input type="text" class="mode-input" placeholder="Study 30 minutes daily" disabled>
 
               <button class="demo-button" disabled>
                 Create My Study Plan
@@ -821,4 +843,5 @@
     });
   </script>
 </body>
+
 </html>
