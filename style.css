@@ -45,12 +45,24 @@
       align-items: center;
       padding: 1rem 0;
     }
-
-    .logo {
-      font-size: 1.5rem;
+    .logo{
+      display: flex;
+      align-items: center;
+    }
+    .logoImage{
+      height: 50px;
+      overflow: hidden;
+    }
+    .logoImage img{
+      height: 100%;
+      object-fit: contain;
+    }
+    .logoTitle {
+      font-size: 2rem;
       font-weight: 700;
       color: var(--red);
       text-decoration: none;
+      margin-left: 15px;
     }
 
     .status-badge {
